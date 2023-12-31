@@ -1,0 +1,67 @@
+﻿@model InsuranceDetailsViewModel
+
+@{
+    ViewData["Title"] = "Seznam pojištění";
+}
+
+<h1>Pojištění</h1>
+
+<div class="table-responsive">
+<table class="table table-sm">
+    <thead>
+        <tr>
+            <th>
+                    @Html.DisplayNameFor(model => model.Insurance.InsuranceType)
+            </th>
+            <th>
+                    @Html.DisplayNameFor(model => model.Insurance.Sum)
+            </th>
+            <th>
+                    @Html.DisplayNameFor(model => model.Insurance.SubjectOfInsurance)
+            </th>
+            <th>
+                    @Html.DisplayNameFor(model => model.Insurance.ValidFrom)
+            </th>
+            <th>
+                    @Html.DisplayNameFor(model => model.Insurance.ValidUntil)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+            @foreach (var item in Model.GetInsurance)
+            {
+        <tr>
+            <td>
+                        <a asp-controller="Insurance" asp-action="Details" asp-route-id="@item.Id">
+                            @Html.DisplayFor(modelItem => item.InsuranceType)
+                </a>
+            </td>
+            <td>
+                        @Html.DisplayFor(modelItem => item.Sum)
+            </td>
+            <td>
+                        @Html.DisplayFor(modelItem => item.SubjectOfInsurance)
+            </td>
+            <td>
+                        @Html.DisplayFor(modelItem => item.ValidFrom)
+            </td>
+            <td>
+                        @Html.DisplayFor(modelItem => item.ValidUntil)
+            </td>
+            <td>
+                @if (User.IsInRole(UserRoles.Admin))
+                {
+                    <p>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Změnit</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Odstranit</a>
+                    </p>
+                }
+            </td>
+        </tr>
+}
+
+    </tbody>
+</table>
+</div>
+

@@ -1,0 +1,30 @@
+﻿@model InsuranceEventsViewModel
+
+@{
+    ViewData["Title"] = "Odstranit pojištní událost";
+}
+
+<h3>Jste jsi jistý že chcete pojistní událost odstranit?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Event)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Event)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EventDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EventDate)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a href='javascript:history.go(-1)'>Zpět</a>
+    </form>
+</div>

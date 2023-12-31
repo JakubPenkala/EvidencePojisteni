@@ -1,0 +1,45 @@
+﻿@model InsuranceEventsDetailsViewModel
+
+@{
+    ViewData["Title"] = "Seznam pojištních událostí";
+}
+
+<h1>Pojistné události</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.InsuranceEvents.Event)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InsuranceEvents.EventDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.GetInsuranceEvents)
+        {
+        <tr>
+            <td>
+                    <a asp-controller="InsuranceEvents" asp-action="Details" asp-route-id="@item.Id">
+                    @Html.DisplayFor(modelItem => item.Event)
+                </a>
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.EventDate)
+            </td>
+            <td>
+                @if (User.IsInRole(UserRoles.Admin))
+                {
+                    <p>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Změnit</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Odstranit</a>
+                    </p>
+                }
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

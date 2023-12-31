@@ -1,0 +1,44 @@
+﻿@model InsuredDetailsViewModel
+
+@{
+    ViewData["Title"] = "Seznam pojištěnců";
+}
+
+<h1>Pojištěnci</h1>
+
+<p>
+    <a asp-action="Create">Vytvořit nového pojištěnce</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Jméno
+            </th>
+            <th>
+                Bydliště
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.GetInsured) {
+        <tr>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id">
+                    @Html.DisplayFor(modelItem => item.Name)
+                    @Html.DisplayFor(modelItem => item.Surname)
+                </a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Street)
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Změnit</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Odstranit</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

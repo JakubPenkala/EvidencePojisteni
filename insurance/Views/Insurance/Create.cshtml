@@ -1,0 +1,55 @@
+﻿@model InsuranceViewModel
+@{
+    ViewData["Title"] = "Vytvořit pojištění";
+}
+
+<h1>Vytvořit nové pojištění</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="@Model.InsuranceType" class="control-label"></label>            
+                <select asp-for="@Model.InsuranceType" asp-items="@Model.InsuranceList" class="form-select form-select-lg mb-3">
+                </select>
+                <span asp-validation-for="@Model.InsuranceType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Sum" class="control-label"></label>
+                <input asp-for="@Model.Sum" class="form-control" />
+                <span asp-validation-for="@Model.Sum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.SubjectOfInsurance" class="control-label"></label>
+                <input asp-for="@Model.SubjectOfInsurance" class="form-control" />
+                <span asp-validation-for="@Model.SubjectOfInsurance" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.ValidFrom" class="control-label"></label>
+                <input asp-for="@Model.ValidFrom" value="@DateTime.Today" class="form-control" />
+                <span asp-validation-for="@Model.ValidFrom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.ValidUntil" class="control-label"></label>
+                <input asp-for="@Model.ValidUntil" value="@DateTime.Today" class="form-control" />
+                <span asp-validation-for="@Model.ValidUntil" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Id">
+                    <input type="submit" value="Vytvořit" class="btn btn-primary" />
+                </label>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a href='javascript:history.go(-1)'>Zpět</a>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

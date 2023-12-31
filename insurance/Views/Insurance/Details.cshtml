@@ -1,0 +1,92 @@
+﻿@model InsuranceDetailsViewModel
+
+@{
+    ViewData["Title"] = "Detaily pojištění";
+}
+
+<h1>Podrobnosti</h1>
+<h4>Pojištění</h4>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Insurance.InsuranceType)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Insurance.InsuranceType)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Insurance.Sum)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Insurance.Sum)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Insurance.SubjectOfInsurance)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Insurance.SubjectOfInsurance)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Insurance.ValidFrom)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Insurance.ValidFrom)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Insurance.ValidUntil)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Insurance.ValidUntil)
+        </dd>
+    </dl>
+    <div>     
+    @if (User.IsInRole(UserRoles.Admin))
+    {
+        <span>
+            <a asp-controller="Insurance" asp-action="Delete" asp-route-id="@Model.Insurance.Id">Odstranit</a> |
+            <a asp-controller="Insurance" asp-action="Edit" asp-route-id="@Model.Insurance.Id">Změnit</a> |
+        </span>
+    }
+        <a href='javascript:history.go(-1)'>Zpět</a>
+        <hr />
+    </div>
+    <h4>Pojistné Události</h4>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.InsuranceEvents.Event)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.InsuranceEvents.EventDate)
+                </th>
+        </thead>
+    <tbody>
+            @foreach (var item in Model.GetInsuranceEvents)
+        {
+            <tr>
+                <td>
+                    <a asp-controller="insuranceEvents" asp-action="Details" asp-route-id="@item.Id">
+                        @Html.DisplayFor(modelItem => item.Event)
+                    </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventDate)
+                </td>
+                <td>
+                    @if (User.IsInRole(UserRoles.Admin))
+                    {
+                        <p>
+                                <a asp-controller="insuranceEvents" asp-action="Edit" asp-route-id="@item.Id">Změnit</a> |
+                                <a asp-controller="insuranceEvents" asp-action="Delete" asp-route-id="@item.Id">Smazat</a> |
+                        </p>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+    <a asp-controller="insuranceEvents" asp-action="Create" asp-route-id="@Model.Insurance.Id">Vytvořit novou pojistnou Událost</a>
+</div>
